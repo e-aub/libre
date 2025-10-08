@@ -1,6 +1,5 @@
 # Java / Spring Boot
 backend/target/
-backend/.mvn/
 backend/*.iml
 backend/.idea/
 

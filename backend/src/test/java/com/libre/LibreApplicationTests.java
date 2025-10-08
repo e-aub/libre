@@ -1,4 +1,4 @@
-package com.e_aub.libre.backend;
+package com.libre;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

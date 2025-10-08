@@ -1,4 +1,4 @@
-package com.e_aub.libre.backend;
+package com.libre;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

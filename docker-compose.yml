@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: libre-postgres
+    environment:
+      POSTGRES_DB: libre_db
+      POSTGRES_USER: libre_user
+      POSTGRES_PASSWORD: supersecret
+    ports:
+      - "5432:5432"
+    volumes:
+      - libre_pgdata:/var/lib/postgresql/data
+
+volumes:
+  libre_pgdata:

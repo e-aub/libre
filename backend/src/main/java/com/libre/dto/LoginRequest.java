@@ -1,14 +1,14 @@
 package com.libre.dto;
 
 public class LoginRequest {
-    private String email;
+    private String emailOrUsername;
     private String password;
 
-    public String getEmail(){return this.email;}
+    public String getEmailOrUsername(){return this.emailOrUsername;}
     public String getPassword(){return this.password;}
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String emailOrUsername) {
+        this.emailOrUsername = emailOrUsername;
     }
 
     public void setPassword(String password) {

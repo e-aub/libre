@@ -81,6 +81,15 @@ public class User {
     public Role getRole() {
         return role;
     }
+
+    public String getStringRole() {
+        if (this.role == Role.SUDO){
+            return "SUDO";
+        }else if (this.role == Role.ADMIN){
+            return "ADMIN";
+        }
+        return "USER";
+    }
     public void setRole(Role role) {
         this.role = role;
     }

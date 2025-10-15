@@ -13,6 +13,7 @@ import com.libre.service.AuthService;
 import com.libre.service.UserService;
 
 @RestController
+
 @RequestMapping("/auth")
 public class AuthController {
     private final UserService userService;

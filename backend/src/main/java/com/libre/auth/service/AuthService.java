@@ -1,13 +1,16 @@
 package com.libre.auth.service;
 
+import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.libre.auth.dto.*;
-import com.libre.common.exception.AuthenticationFailedException;
 import com.libre.user.model.User;
 import com.libre.user.repository.*;
 import com.libre.user.validation.*;
+import com.libre.utils.Result;
 
 @Service
 public class AuthService {
@@ -23,23 +26,25 @@ public class AuthService {
         this.validator = validator;
     }
 
-    public LoginResponse login(LoginRequest request) {
-        LoginInput loginInput = validator.validateLogin(request);
-
-        User user;
-        AuthenticationFailedException ex = new AuthenticationFailedException("Invalid Username/Email or Password");
-        if (loginInput.isEmail()) {
-            user = userRepository.findByEmail(loginInput.getEmail().toLowerCase())
-            .orElseThrow(() -> ex);
-        } else {
-            user = userRepository.findByUsername(loginInput.getUsername())
-            .orElseThrow(() ->ex);
+    public Result<LoginResponse, Map<String, String>> login(LoginRequest request) {
+        Result<LoginInput, Map<String, String>> validateResult = validator.validateLogin(request);
+        if (validateResult.isErr()){
+            return Result.err(validateResult.getError());
         }
-
+        LoginInput loginInput = validateResult.getValue();
+        Optional<User> maybeUser = loginInput.isEmail() ? 
+        userRepository.findByEmail(loginInput.getEmail().toLowerCase()) :
+        userRepository.findByUsername(loginInput.getUsername());
+        
+        if (!maybeUser.isPresent()){
+            return Result.err(Map.of("error", "Invalid credentials"));
+        }
+        
+        User user = maybeUser.get();
         if (!passwordEncoder.matches(loginInput.getPassword(), user.getPassword())) {
-            throw ex;
+            return Result.err(Map.of("error", "Invalid credentials"));
         }
 
-        return new LoginResponse(jwtService.generateToken(user.getUsername(), user.getStringRole()));
+        return Result.ok(new LoginResponse(jwtService.generateToken(user.getUsername(), user.getStringRole())));
     }
 }

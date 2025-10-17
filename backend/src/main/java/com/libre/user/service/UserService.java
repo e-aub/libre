@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.libre.auth.dto.*;
 import com.libre.auth.service.JwtService;
-import com.libre.common.exception.FieldValidationException;
 import com.libre.user.model.Role;
 import com.libre.user.model.User;
 import com.libre.user.repository.UserRepository;
 import com.libre.user.validation.UserValidator;
+import com.libre.utils.Result;
 
 import java.util.Map;
 
@@ -30,10 +30,14 @@ public class UserService {
         this.jwtService = jwtService;
     }
 
-    public LoginResponse register(RegisterRequest request) {
-        validator.validateAllForRegister(request);
+    public Result<LoginResponse, Map<String, String>> register(RegisterRequest request) {
+        Result<Void, Map<String, String>> validateResult = validator.validateAllForRegister(request);
+        if (validateResult.isErr()){
+            return Result.err(validateResult.getError());
+        }  
 
         User user = new User();
+        
         user.setFirstName(request.getFirstName().trim());
         user.setLastName(request.getLastName().trim());
         user.setUsername(request.getUsername().trim());
@@ -44,9 +48,9 @@ public class UserService {
 
         try {
             userRepository.save(user);
-            return new LoginResponse(jwtService.generateToken(user.getUsername(), user.getStringRole()));
+            return Result.ok(new LoginResponse(jwtService.generateToken(user.getUsername(), user.getStringRole())));
         } catch (DataIntegrityViolationException e) {
-            throw new FieldValidationException(Map.of(
+            return Result.err(Map.of(
                 "usernameOrEmail", "Username or email already exists"
             ));
         }

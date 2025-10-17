@@ -1,14 +1,15 @@
 package com.libre.user.validation;
 
-
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
-import com.libre.auth.dto.*;
-import com.libre.common.exception.FieldValidationException;
-
+import com.libre.auth.dto.LoginInput;
+import com.libre.auth.dto.LoginRequest;
+import com.libre.auth.dto.RegisterRequest;
+import com.libre.utils.Result;
 
 @Component
 public class UserValidator {
@@ -20,88 +21,89 @@ public class UserValidator {
         "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"
     );
 
-    public void validateFirstName(String firstName) {
-        if (firstName == null || !NAME_REGEX.matcher(firstName).matches()) {
-            throw new FieldValidationException(Map.of(
-                "firstName", "First name is required and must be 3-20 alphabetic characters"
-            ));
+
+    public boolean isFirstNameValid(String firstName) {
+        return firstName != null && NAME_REGEX.matcher(firstName).matches();
+    }
+
+    public boolean isLastNameValid(String lastName) {
+        return lastName != null && NAME_REGEX.matcher(lastName).matches();
+    }
+
+    public boolean isUsernameValid(String username) {
+        return username != null && USERNAME_REGEX.matcher(username).matches();
+    }
+
+    public boolean isEmailValid(String email) {
+        return email != null && EMAIL_REGEX.matcher(email.toLowerCase()).matches();
+    }
+
+    public boolean isPasswordValid(String password) {
+        return password != null && PASSWORD_REGEX.matcher(password).matches();
+    }
+
+    public boolean isAgeValid(Integer age) {
+        return age != null && age >= 13 && age <= 120;
+    }
+
+
+    public Result<Void, Map<String, String>> validateAllForRegister(RegisterRequest form) {
+        Map<String, String> errors = new HashMap<>();
+
+        if (!isFirstNameValid(form.getFirstName())) {
+            errors.put("firstName", "First name is required and must be 3-20 alphabetic characters");
         }
-    }
-
-    public void validateLastName(String lastName) {
-        if (lastName == null || !NAME_REGEX.matcher(lastName).matches()) {
-            throw new FieldValidationException(Map.of(
-                "lastName", "Last name is required and must be 3-20 alphabetic characters"
-            ));
+        if (!isLastNameValid(form.getLastName())) {
+            errors.put("lastName", "Last name is required and must be 3-20 alphabetic characters");
         }
-    }
-
-    public void validateUsername(String username) {
-        if (username == null || !USERNAME_REGEX.matcher(username).matches()) {
-            throw new FieldValidationException(Map.of(
-                "username", "Username must be 3-20 chars, alphanumeric or underscore"
-            ));
+        if (!isUsernameValid(form.getUsername())) {
+            errors.put("username", "Username must be 3-20 chars, alphanumeric or underscore");
         }
-    }
-
-    public void validateEmail(String email) {
-        if (email == null || !EMAIL_REGEX.matcher(email.toLowerCase()).matches()) {
-            throw new FieldValidationException(Map.of(
-                "email", "Email is invalid"
-            ));
+        if (!isEmailValid(form.getEmail())) {
+            errors.put("email", "Email is invalid");
         }
-    }
-
-    public void validatePassword(String password) {
-        if (password == null || !PASSWORD_REGEX.matcher(password).matches()) {
-            throw new FieldValidationException(Map.of(
-                "password", "Password must be at least 8 characters, include uppercase, lowercase, digit and special character"
-            ));
+        if (!isPasswordValid(form.getPassword())) {
+            errors.put("password", "Password must be at least 8 characters, include uppercase, lowercase, digit and special character");
         }
-    }
-
-    public void validateAge(Integer age) {
-        if (age == null || age < 13 || age > 120) {
-            throw new FieldValidationException(Map.of(
-                "age", "Age is required and must be between 13 and 120"
-            ));
+        if (!isAgeValid(form.getAge())) {
+            errors.put("age", "Age is required and must be between 13 and 120");
         }
-    }
 
-
-    public void validateAllForRegister(RegisterRequest form) {
-        validateFirstName(form.getFirstName());
-        validateLastName(form.getLastName());
-        validateUsername(form.getUsername());
-        validateEmail(form.getEmail());
-        validatePassword(form.getPassword());
-        validateAge(form.getAge());
-    }
-
-   public LoginInput validateLogin(LoginRequest form) {
-    String input = form.getEmailOrUsername();
-    String password = form.getPassword();
-
-    if (input == null || input.isBlank()) {
-        throw new FieldValidationException(Map.of(
-            "usernameOrEmail", "Username or email is required"
-        ));
-    }
-
-    if (input.contains("@")) {
-        validateEmail(input);
-        validatePassword(password);
-        return LoginInput.forEmail(input, password);
-    } else {
-        if (!USERNAME_REGEX.matcher(input).matches()) {
-            throw new FieldValidationException(Map.of(
-                "usernameOrEmail", "Username must be 3-20 chars, alphanumeric or underscore"
-            ));
+        if (!errors.isEmpty()) {
+            return Result.err(errors);
         }
-        validatePassword(password);
-        return LoginInput.forUsername(input, password);
+
+        return Result.ok(); 
     }
-}
 
 
+    public Result<LoginInput, Map<String, String>> validateLogin(LoginRequest form) {
+        Map<String, String> errors = new HashMap<>();
+        String input = form.getEmailOrUsername();
+        String password = form.getPassword();
+
+        if (input == null || input.isBlank()) {
+            errors.put("usernameOrEmail", "Username or email is required");
+            return Result.err(errors);
+        }
+
+        boolean inputValid;
+        LoginInput loginInput;
+
+        if (input.contains("@")) {
+            inputValid = isEmailValid(input);
+            if (!inputValid) errors.put("usernameOrEmail", "Email is invalid");
+            if (!isPasswordValid(password)) errors.put("password", "Password is invalid");
+            loginInput = LoginInput.forEmail(input, password);
+        } else {
+            inputValid = isUsernameValid(input);
+            if (!inputValid) errors.put("usernameOrEmail", "Username must be 3-20 chars, alphanumeric or underscore");
+            if (!isPasswordValid(password)) errors.put("password", "Password is invalid");
+            loginInput = LoginInput.forUsername(input, password);
+        }
+
+        if (!errors.isEmpty()) return Result.err(errors);
+
+        return Result.ok(loginInput);
+    }
 }

@@ -2,6 +2,7 @@ package com.libre;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,7 @@ public class LibreApplication {
 class HelloController {
 
     @GetMapping("/hello")
+    @PreAuthorize("hasRole('USER')") 
     public String sayHello() {
         return "Hello";
     }

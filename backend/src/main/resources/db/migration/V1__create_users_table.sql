@@ -7,5 +7,6 @@ CREATE TABLE users(
     email VARCHAR(100) NOT NULL UNIQUE,
     role VARCHAR(20) NOT NULL DEFAULT 'USER',
     password VARCHAR(255) NOT NULL,
+    enabled boolean DEFAULT true,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 )

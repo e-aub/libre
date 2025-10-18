@@ -48,7 +48,7 @@ public class UserService {
 
         try {
             userRepository.save(user);
-            return Result.ok(new LoginResponse(jwtService.generateToken(user.getUsername(), user.getStringRole())));
+            return Result.ok(new LoginResponse(jwtService.generateToken(user.getUsername(), user.getRole().name())));
         } catch (DataIntegrityViolationException e) {
             return Result.err(Map.of(
                 "usernameOrEmail", "Username or email already exists"

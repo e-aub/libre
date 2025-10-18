@@ -42,11 +42,12 @@ public class User {
     @Column(name = "age")
     private Integer age;
 
-    public String getStringRole() {
-        if (this.role == Role.SUDO)
-            return "SUDO";
-        else if (this.role == Role.ADMIN)
-            return "ADMIN";
-        return "USER";
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    public boolean isEnabled(){
+        return this.enabled;
     }
+
+    
 }

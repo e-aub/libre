@@ -45,6 +45,6 @@ public class AuthService {
             return Result.err(Map.of("error", "Invalid credentials"));
         }
 
-        return Result.ok(new LoginResponse(jwtService.generateToken(user.getUsername(), user.getStringRole())));
+        return Result.ok(new LoginResponse(jwtService.generateToken(user.getUsername(), user.getRole().name())));
     }
 }

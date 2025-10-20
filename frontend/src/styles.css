@@ -1,0 +1,57 @@
+:root {
+    --color-black: #000000;
+    --color-dark-gray: #242424;
+    --color-gray: #6B6B6B;
+
+
+    --color-white: #ffffff;
+    --color-primary-green: #79FF4D;
+    --color-text-dark: #333333;
+    --color-text-light: #6c757d;
+
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Roboto Serif', serif;
+    --font-ui: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.h1-title {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.btn {
+    cursor: pointer;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--font-ui);
+    transition: opacity 0.2s, background-color 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border: 1px solid var(--color-black);
+}
+
+.btn-secondary {
+    background-color: var(--color-white);
+    color: var(--color-black);
+    border: 1px solid var(--color-black);
+}

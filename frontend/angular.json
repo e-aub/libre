@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "libre": {
+    "frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "libre:build:production"
+              "buildTarget": "frontend:build:production"
             },
             "development": {
-              "buildTarget": "libre:build:development"
+              "buildTarget": "frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,8 +88,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "91a98aab-1f5d-4135-bfc5-28d8c4ab2304"
   }
 }

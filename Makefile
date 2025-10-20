@@ -1,5 +1,3 @@
-# .PHONY: install clean run run-backend run-frontend
-
 install:
 	@echo "Installing..."
 	$(MAKE) -C backend install-backend

@@ -38,20 +38,22 @@ body {
     font-weight: 600;
     font-family: var(--font-ui);
     transition: opacity 0.2s, background-color 0.2s;
+    white-space: nowrap;
 }
 
 .btn:hover {
     opacity: 0.9;
 }
 
-.btn-primary {
+.primary-btn {
     background-color: var(--color-black);
     color: var(--color-white);
     border: 1px solid var(--color-black);
 }
 
-.btn-secondary {
+.secondary-btn {
     background-color: var(--color-white);
     color: var(--color-black);
     border: 1px solid var(--color-black);
 }
+

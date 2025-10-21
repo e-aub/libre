@@ -1,0 +1,46 @@
+.header-container {
+    background-color: var(--color-white);
+    box-shadow: 0 1px 30px rgba(0, 2, 20, 0.5);
+    padding: 10px 0; 
+}
+
+.header-content {
+    max-width: 1200px;
+    
+    margin: 0 auto;
+    
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+
+    padding: 0 40px; 
+}
+
+
+.logo-link {
+    display: flex; 
+    align-items: center;
+}
+
+.logo-img {
+    height: 48px; 
+    width: auto;
+    max-width: 100%; 
+}
+
+.actions {
+    display: flex;
+    gap: 8px; 
+}
+
+
+@media (max-width: 768px){
+    .header-content {
+        padding: 0 20px; 
+    }
+
+    .logo-img {
+        height: 32px; 
+    }
+    
+}

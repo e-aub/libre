@@ -1,0 +1,47 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    background-color: rgba(0, 0, 0, 0.6); 
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    z-index: 1000; 
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    background-color: var(--color-white);
+    padding: 40px;
+    border-radius: 16px; 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); 
+    
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box; 
+    
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0.8; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        margin: 20px;
+        max-width: 90%;
+        padding: 30px 20px;
+    }
+}

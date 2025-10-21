@@ -1,0 +1,120 @@
+.auth-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 36px; 
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 20px;
+    margin-bottom: 18px;
+    
+    border: 1px solid var(--color-gray);
+    border-radius: 50px;
+    
+    box-sizing: border-box; 
+    font-size: 16px;
+    font-family: var(--font-ui);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    border-color: var(--color-black);
+}
+
+.error-message {
+    color: var(--color-red); 
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+.forgot-link {
+    font-size: 13px;
+    color: var(--color-gray);
+    text-align: right;
+    text-decoration: none;
+    margin-top: -5px;
+    margin-bottom: 25px;
+    display: block;
+    transition: color 0.2s;
+}
+
+.forgot-link:hover {
+    color: var(--color-black);
+}
+
+.main-btn {
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 50px; 
+    margin-bottom: 30px;
+}
+
+.main-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.separator {
+    text-align: center;
+    font-size: 14px;
+    color: var(--color-dark-gray);
+    margin-bottom: 20px;
+}
+
+.switch-link {
+    color: var(--color-black);
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 5px;
+    transition: opacity 0.2s;
+}
+
+.switch-link:hover {
+    opacity: 0.7;
+}
+
+.google-btn {
+    background-color: var(--color-white);
+    color: var(--color-dark-gray);
+    border: 1px solid #ddd; 
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    border-radius: 50px;
+}
+
+.google-btn:hover {
+    background-color: #f7f7f7;
+    border-color: #ccc;
+    opacity: 1;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    margin-bottom: 30px; 
+}
+.google-logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    object-fit: contain; 
+}
+
+@media (max-width: 400px) {
+    .main-btn {
+        font-size: 16px;
+    }
+}

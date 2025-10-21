@@ -1,5 +1,6 @@
 import { NgOptimizedImage } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
+import { modalService } from "../../core/modal.service";
 
 
 @Component(
@@ -23,11 +24,12 @@ import { Component } from "@angular/core";
         imports : [NgOptimizedImage],
     })
 export class HeaderComponent{
+    private modalService = inject(modalService);
     openLogin(){
-
+        this.modalService.openModal('login');
     }
 
     openSignup(){
-
+        this.modalService.openModal('register');
     }
 }

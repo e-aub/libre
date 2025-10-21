@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { modalService } from "../../core/modal.service";
+import { ModalService } from "../../core/modal.service";
 import { AsyncPipe } from "@angular/common";
 import { LoginFormComponent } from "../login-form/login-form.component";
 import { RegisterFormComponent } from "../register-form/register-form.component";
@@ -27,7 +27,7 @@ import { RegisterFormComponent } from "../register-form/register-form.component"
 )
 
 export class AuthModalComponent{
-    private modalService = inject(modalService);
+    private modalService = inject(ModalService);
 
     public currentModal$ = this.modalService.currentModal$;
 

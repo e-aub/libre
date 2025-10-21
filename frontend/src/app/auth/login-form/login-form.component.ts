@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ModalService } from "../../core/modal.service";
 
 @Component({
     selector : 'app-login-form',
@@ -22,6 +23,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
             
             <div class="actions">
                 <button type="submit" [disabled]="loginForm.invalid" class="btn primary-btn main-btn">Log in</button>
+
+                <div class="separator">
+                    Don't have an account? 
+                    <a href="#" (click)="authModalService.openModal('register')" class="switch-link">Sign up</a>
+                </div>
+
                 <button class="btn google-btn">
                     <img src="google-logo.svg" alt="Google" class="google-logo">
                     Log in with Google
@@ -32,10 +39,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
 })
 
 export class LoginFormComponent{
+    authModalService = inject(ModalService);
+
     loginForm = new FormGroup({
         usernameOrEmail : new FormControl('', [Validators.email, Validators.required]),
         password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern(new RegExp("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"))]),
     })
+
 
     onSubmit(){
         console.log(this.loginForm.controls)

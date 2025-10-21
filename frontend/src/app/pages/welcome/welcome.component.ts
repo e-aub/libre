@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AuthModalComponent } from '../../auth/auth-modal/auth-modal.component';
-import { modalService } from '../../core/modal.service';
+import { ModalService } from '../../core/modal.service';
 
 @Component({
   imports: [],
@@ -28,6 +28,6 @@ import { modalService } from '../../core/modal.service';
   styleUrl: './welcome.component.css',
 })
 export class WelcomeComponent {
-    public authModalService = inject(modalService);
+    public authModalService = inject(ModalService);
     
 }

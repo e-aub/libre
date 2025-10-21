@@ -7,7 +7,7 @@ type modalType = null | 'login' | 'register';
         providedIn : "root",
     }    
 )
-export class modalService{
+export class ModalService{
     private modalState = new BehaviorSubject<modalType>(null);
 
     public currentModal$ : Observable<modalType> = this.modalState.asObservable();

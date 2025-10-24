@@ -7,6 +7,21 @@ interface AuthResponse{
     accessToken : string,
 }
 
+interface RegisterData{
+    firstName : string,
+    lastName : string,
+    age : number,
+    email : string,
+    username : string,
+    password : string,
+    repeatedPassword : string,
+}
+
+interface LoginData{
+    emailOrUsername : string,
+    password : string,
+}
+
 @Injectable({providedIn : 'root'})
 export class AuthService {
     private accessToken = signal<string | null>(null);
@@ -17,19 +32,23 @@ export class AuthService {
 
     constructor(private http: HttpClient){}
 
-    login(emailOrUsername : string, password : string): Observable<void>{
-        return this.http.post<AuthResponse>(`${enviroment.apiUrl}/auth`, {
-            emailOrUsername,
-            password
-        }).pipe(
+    login(loginData : LoginData): Observable<void>{
+        return this.http.post<AuthResponse>(`${enviroment.apiUrl}/auth/login`, loginData).pipe(
             tap(res => this.accessToken.set(res.accessToken)),
             tap(() => console.log('Login successful')),
             map(()=> undefined),
         );
     }
 
-    logout() : void{
-        this.accessToken.set(null);
-        this.http.post()
+    logout() : Observable<void>{
+        return this.http.post<void>(`${enviroment.apiUrl}/auth/logout`, {}).pipe(map(()=> {
+            this.accessToken.set(null);
+        }))
+    }
+
+    register(RegisterData : RegisterData) : Observable<void>{
+        return this.http.post<void>(`${enviroment.apiUrl}/auth/register`, RegisterData).pipe(
+            tap(() => console.log('Registration successful')),
+        );
     }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { ModalService } from "../../core/modal.service";
 import { FormControl, FormGroup, Validators, ValidationErrors, AbstractControl, ValidatorFn } from "@angular/forms";
 import { ReactiveFormsModule } from '@angular/forms';
@@ -32,8 +32,14 @@ import { ReactiveFormsModule } from '@angular/forms';
       }
 
       <div class="two-fields-wrapper">
-        <input type="password" placeholder="Password" formControlName="password" class="form-input">
-        <input type="password" placeholder="Repeat Password" formControlName="repeatedPassword" class="form-input">
+        <span>
+        <input [type]="passwordType()" placeholder="Password" formControlName="password" class="form-input">
+        <button type="button" class="toggle-btn" (click)="toggleShowPassword()" [class.flipped]="passwordType() == 'password'">👀</button>
+        </span>
+        <span>
+        <input [type]="repeatedPasswordType()" placeholder="Repeat Password" formControlName="repeatedPassword" class="form-input">
+        <button type="button" class="toggle-btn" (click)="toggleShowRepeatedPassword()" [class.flipped]="repeatedPasswordType() == 'password'">👀</button>
+        </span>
       </div>
       @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
           <p class="error-message">
@@ -80,6 +86,17 @@ export class RegisterFormComponent {
         },
         { validators: passwordMatchValidator }
     );
+
+    passwordType = signal<'password' | 'text'>('password');
+    repeatedPasswordType = signal<'password' | 'text'>('password');
+
+    toggleShowPassword(){
+        this.passwordType.set(this.passwordType() === 'password' ? 'text' : 'password');
+    }
+
+    toggleShowRepeatedPassword(){
+        this.repeatedPasswordType.set(this.repeatedPasswordType() === 'password' ? 'text' : 'password');
+    }
 
     onSubmit() {
         if (this.registerForm.valid) {

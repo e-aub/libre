@@ -19,7 +19,7 @@ public class CorsConfig {
         // Request Forgery (CSRF) tokens
         corsConfiguration.setAllowCredentials(true);
 
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:8000"));
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200/"));
 
         corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 

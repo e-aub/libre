@@ -42,6 +42,12 @@
     margin-bottom: 15px;
 }
 
+.error-message.login-error {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
 .forgot-link {
     font-size: 13px;
     color: var(--color-gray);
@@ -128,6 +134,20 @@
     height: 20px;
     margin-right: 10px;
     object-fit: contain; 
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    padding: 5px 10px;
+    font-size: 16px;
+    margin-left: -30px;
+    margin-top: 8px;
+}
+.flipped {
+  transform: scaleX(-1);
 }
 
 @media (max-width: 900px), (max-height: 900px) {

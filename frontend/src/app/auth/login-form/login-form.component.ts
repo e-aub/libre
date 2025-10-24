@@ -5,7 +5,7 @@ import { ModalService } from "../../core/modal.service";
 @Component({
     selector : 'app-login-form',
     imports : [ReactiveFormsModule],
-    styleUrl : './login-form.component.css',
+    styleUrl : '../login-register-form.component.css',
     template : `
         <h2 class="auth-title h1-title">Welcome back.</h2>
         <form [formGroup]="loginForm" (ngSubmit)=onSubmit() class="auth-form">

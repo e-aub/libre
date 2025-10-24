@@ -8,6 +8,8 @@ import { ModalService } from '../../core/modal.service';
   template: `
     <section class="welcome-section">
       <div class="welcome-content-wrapper">
+          <div>{{count}}</div>
+          
           <div class="content-area">
             <p class="h1-title headline-line">Share Thoughts</p>
             <p class="h1-title headline-line">Shape Minds</p>
@@ -29,5 +31,10 @@ import { ModalService } from '../../core/modal.service';
 })
 export class WelcomeComponent {
     public authModalService = inject(ModalService);
+    count = 1;
+
+    increment(){
+      this.count += 1;
+    }
     
 }

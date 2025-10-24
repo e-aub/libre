@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, signal, WritableSignal } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
 type modalType = null | 'login' | 'register';
@@ -8,15 +8,13 @@ type modalType = null | 'login' | 'register';
     }    
 )
 export class ModalService{
-    private modalState = new BehaviorSubject<modalType>(null);
-
-    public currentModal$ : Observable<modalType> = this.modalState.asObservable();
+    modalState : WritableSignal<modalType> = signal(null);
 
     openModal(type : modalType){
-        this.modalState.next(type);
+        this.modalState.set(type);
     }
 
     closeModal(){
-        this.modalState.next(null);
+        this.modalState.set(null);
     }
 }

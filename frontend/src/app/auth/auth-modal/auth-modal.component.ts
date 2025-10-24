@@ -9,7 +9,7 @@ import { RegisterFormComponent } from "../register-form/register-form.component"
         imports : [AsyncPipe, LoginFormComponent, RegisterFormComponent],
         standalone : true,
         template : `
-        @if(currentModal$ | async; as currentModal){
+        @if(currentModal(); as currentModal){
             <div class="modal-backdrop" (click)="closeModal()">
             <div class="modal-content" (click)="$event.stopPropagation()">
             @if (currentModal == 'login'){
@@ -29,7 +29,7 @@ import { RegisterFormComponent } from "../register-form/register-form.component"
 export class AuthModalComponent{
     private modalService = inject(ModalService);
 
-    public currentModal$ = this.modalService.currentModal$;
+    public currentModal = this.modalService.modalState;
 
     closeModal(){
         this.modalService.closeModal();

@@ -55,11 +55,6 @@ import { ReactiveFormsModule } from '@angular/forms';
           Already have an account?
           <a href="#" (click)="authModalService.openModal('login')" class="switch-link">Sign in</a>
         </div>
-
-        <button class="btn google-btn">
-          <img src="google-logo.svg" alt="Google" class="google-logo">
-          Login with Google
-        </button>
       </div>
     </form>
   `

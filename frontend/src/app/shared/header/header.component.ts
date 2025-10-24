@@ -21,7 +21,6 @@ import { ModalService } from "../../core/modal.service";
             </header>
                 `,
         styleUrl : './header.component.css',
-        imports : [NgOptimizedImage],
     })
 export class HeaderComponent{
     private modalService = inject(ModalService);

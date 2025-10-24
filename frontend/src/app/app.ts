@@ -6,7 +6,7 @@ import { AuthModalComponent } from './auth/auth-modal/auth-modal.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, WelcomeComponent, AuthModalComponent],
+  imports: [HeaderComponent, WelcomeComponent, AuthModalComponent],
   template : `
     <app-header/>
     <app-welcome/>

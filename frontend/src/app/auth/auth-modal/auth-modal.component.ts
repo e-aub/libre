@@ -6,7 +6,7 @@ import { RegisterFormComponent } from "../register-form/register-form.component"
 
 @Component(
    {selector : 'app-auth-modal',
-        imports : [AsyncPipe, LoginFormComponent, RegisterFormComponent],
+        imports : [LoginFormComponent, RegisterFormComponent],
         standalone : true,
         template : `
         @if(currentModal(); as currentModal){

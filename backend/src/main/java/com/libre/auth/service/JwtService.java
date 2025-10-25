@@ -1,11 +1,11 @@
 package com.libre.auth.service;
 
 import java.security.Key;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -21,6 +21,8 @@ public class JwtService{
 
     @Value("${JWT_EXPIRATION}")
     private long jwtExpiration;
+    private static final SecureRandom secureRandom = new SecureRandom();
+    private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder().withoutPadding();
 
     @PostConstruct
     public void init(){
@@ -45,7 +47,7 @@ public class JwtService{
 
 
 
-    public String generateToken(String username, String role){
+    public String generateAccessToken(String username, String role){
         return Jwts.builder()
         .setSubject(username)
         .claim("role",role)
@@ -54,5 +56,11 @@ public class JwtService{
         .signWith(key, SignatureAlgorithm.HS256)
         .compact();
     
+    }
+    
+    public String generateRefreshToken(String username){
+        byte[] randomBytes = new byte[64];
+        secureRandom.nextBytes(randomBytes);
+        return base64Encoder.encodeToString(randomBytes);
     }
 }

@@ -1,5 +1,5 @@
 import { Component, inject, signal } from "@angular/core";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { ModalService } from "../../core/modal.service";
 import { AuthService } from "../auth-service/auth.service";
 
@@ -14,10 +14,10 @@ import { AuthService } from "../auth-service/auth.service";
         <form [formGroup]="loginForm" (ngSubmit)=onSubmit() class="auth-form">
             <input type="email" placeholder="Username or Email" formControlName="emailOrUsername" class="form-input">
             @if (loginForm.get('emailOrUsername')?.invalid && loginForm.get('emailOrUsername')?.touched){
-                <p class="error-message">Valid Email is required</p>
+                <p class="error-message">Valid Email Or Username is required</p>
             }
             <span>
-                <input [type]="passwordType()" placeholder="Password" formControlName="password" class="form-input">
+                <input [type]="passwordType()" placeholder="Password" formControlName="password" class="form-input password-input">
                 <button type="button" class="toggle-btn" [class.flipped]="passwordType() == 'password'" (click)="toggleShowPassword()">👀</button>
             </span>
             @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
@@ -58,11 +58,15 @@ export class LoginFormComponent{
         this.passwordType.set(this.passwordType() === 'password' ? 'text' : 'password');
     }
 
+   
+
     
     loginForm = new FormGroup({
-        emailOrUsername : new FormControl('', [Validators.email, Validators.required]),
+        emailOrUsername : new FormControl('', [emailOrUsernameValidator]),
         password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern(new RegExp("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"))]),
-    })
+    });
+
+    
 
 
     onSubmit(){
@@ -74,6 +78,7 @@ export class LoginFormComponent{
             next : () => {
                 this.loginError.set(null);
                 this.authModalService.closeModal();
+                console.log(this.authService.isLoggedIn())
             },
             error : (err) => {
                 console.error('Login failed', err.error);
@@ -82,3 +87,12 @@ export class LoginFormComponent{
         });
     }
 }
+
+ export const emailOrUsernameValidator : ValidatorFn = (control : AbstractControl) : ValidationErrors | null => {
+        const value  = control.value;
+        if (value && value.includes('@')){
+            return Validators.email(control) as AbstractControl;
+        }
+        return value === '' || value.length < 3 || value.length > 20 ? { invalidEmailOrUsername : true } : null;
+        }
+    

@@ -2,6 +2,8 @@ import { Component, inject, signal } from "@angular/core";
 import { ModalService } from "../../core/modal.service";
 import { FormControl, FormGroup, Validators, ValidationErrors, AbstractControl, ValidatorFn } from "@angular/forms";
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient } from "@angular/common/http";
+import { enviroment } from "../../../enviroment";
 
 @Component({
     selector: 'app-register-form',
@@ -33,11 +35,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 
       <div class="two-fields-wrapper">
         <span>
-        <input [type]="passwordType()" placeholder="Password" formControlName="password" class="form-input">
+        <input [type]="passwordType()" placeholder="Password" formControlName="password" class="form-input password-input">
         <button type="button" class="toggle-btn" (click)="toggleShowPassword()" [class.flipped]="passwordType() == 'password'">👀</button>
         </span>
         <span>
-        <input [type]="repeatedPasswordType()" placeholder="Repeat Password" formControlName="repeatedPassword" class="form-input">
+        <input [type]="repeatedPasswordType()" placeholder="Repeat Password" formControlName="repeatedPassword" class="form-input password-input">
         <button type="button" class="toggle-btn" (click)="toggleShowRepeatedPassword()" [class.flipped]="repeatedPasswordType() == 'password'">👀</button>
         </span>
       </div>
@@ -56,7 +58,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
       <div class="actions">
         <button type="submit" [disabled]="registerForm.invalid" class="btn primary-btn main-btn">Register</button>
-
+        @if (registerError()){
+            <p class="error-message login-error">{{ registerError() }}</p>
+        }
         <div class="separator">
           Already have an account?
           <a href="#" (click)="authModalService.openModal('login')" class="switch-link">Sign in</a>
@@ -67,6 +71,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class RegisterFormComponent {
     authModalService = inject(ModalService);
+
+    constructor(public http : HttpClient){}
 
     private readonly NAME_REGEX = /^[A-Za-z ]{3,20}$/;
     private readonly USERNAME_REGEX = /^[A-Za-z0-9_]{3,20}$/;
@@ -87,6 +93,8 @@ export class RegisterFormComponent {
         { validators: passwordMatchValidator }
     );
 
+    registerError = signal<string | null>(null);
+
     passwordType = signal<'password' | 'text'>('password');
     repeatedPasswordType = signal<'password' | 'text'>('password');
 
@@ -100,7 +108,24 @@ export class RegisterFormComponent {
 
     onSubmit() {
         if (this.registerForm.valid) {
-            console.log('Form submitted:', this.registerForm.value);
+           this.http.post<void>(`${enviroment.apiUrl}/auth/register`, {
+            firstName : this.registerForm.value.firstName!,
+            lastName : this.registerForm.value.lastName!,
+            age : this.registerForm.value.age!,
+            email : this.registerForm.value.email!,
+            username : this.registerForm.value.username!,
+            password : this.registerForm.value.password!,
+            repeatedPassword : this.registerForm.value.repeatedPassword!,
+           }).subscribe({
+            next: () => {
+                console.log('Registration successful');
+                this.authModalService.closeModal();
+            },
+            error: (err) => {
+                console.error('Registration failed', err);
+                this.registerError.set(err.error?.error || 'An error occurred during registration. Please try again later.');
+            }
+           })
         } else {
             this.registerForm.markAllAsTouched();
         }

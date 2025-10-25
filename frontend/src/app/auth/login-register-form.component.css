@@ -141,7 +141,7 @@
     border: none;
     cursor: pointer;
     position: absolute;
-    padding: 5px 10px;
+    padding: 5px 0;
     font-size: 16px;
     margin-left: -30px;
     margin-top: 8px;
@@ -159,6 +159,10 @@
   .form-input {
     padding: 12px 16px;
     font-size: 15px;
+  }
+
+  .form-input.password-input {
+    padding-right: 40px; 
   }
 
   .main-btn,

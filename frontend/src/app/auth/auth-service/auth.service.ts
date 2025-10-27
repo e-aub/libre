@@ -33,7 +33,9 @@ export class AuthService {
     constructor(private http: HttpClient){}
 
     login(loginData : LoginData): Observable<void>{
-        return this.http.post<AuthResponse>(`${enviroment.apiUrl}/auth/login`, loginData).pipe(
+        return this.http.post<AuthResponse>(`${enviroment.apiUrl}/auth/login`, loginData,{
+            withCredentials: true,
+        }).pipe(
             tap(res => this.accessToken.set(res.accessToken)),
             tap(() => console.log('Login successful')),
             map(()=> undefined),

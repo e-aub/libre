@@ -4,6 +4,8 @@ import java.security.Key;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Claims;
@@ -58,9 +60,20 @@ public class JwtService{
     
     }
     
-    public String generateRefreshToken(String username){
+    public String generateRefreshToken(){
         byte[] randomBytes = new byte[64];
         secureRandom.nextBytes(randomBytes);
         return base64Encoder.encodeToString(randomBytes);
     }
+
+    public Map<String, String> generateTokens(String username, String role){
+        String accessToken = generateAccessToken(username, role);
+        String refreshToken = generateRefreshToken();
+        return Map.of(
+            "accessToken", accessToken,
+            "refreshToken", refreshToken
+        );
+    }
+
+   
 }

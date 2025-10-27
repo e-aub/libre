@@ -15,6 +15,7 @@ import com.libre.user.validation.UserValidator;
 import com.libre.utils.Result;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -54,5 +55,9 @@ public class UserService {
                 "usernameOrEmail", "Username or email already exists"
             ));
         }
+    }
+
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
     }
 }

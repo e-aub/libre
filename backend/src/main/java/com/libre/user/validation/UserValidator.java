@@ -1,9 +1,10 @@
 package com.libre.user.validation;
 
+import java.io.ObjectInputFilter.Status;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-
+import java.net.HttpURLConnection;
 import org.springframework.stereotype.Component;
 
 import com.libre.auth.dto.LoginInput;
@@ -70,7 +71,7 @@ public class UserValidator {
         }
 
         if (!errors.isEmpty()) {
-            return Result.err(errors);
+            return Result.err(errors, HttpURLConnection.HTTP_BAD_REQUEST);
         }
 
         return Result.ok(); 
@@ -84,7 +85,7 @@ public class UserValidator {
 
         if (input == null || input.isBlank()) {
             errors.put("usernameOrEmail", "Username or email is required");
-            return Result.err(errors);
+            return Result.err(errors, HttpURLConnection.HTTP_BAD_REQUEST);
         }
 
         boolean inputValid;
@@ -102,7 +103,7 @@ public class UserValidator {
             loginInput = LoginInput.forUsername(input, password);
         }
 
-        if (!errors.isEmpty()) return Result.err(errors);
+        if (!errors.isEmpty()) return Result.err(errors, HttpURLConnection.HTTP_BAD_REQUEST);
 
         return Result.ok(loginInput);
     }

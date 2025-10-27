@@ -46,7 +46,7 @@ public class AuthController {
         Result<Map<String, String>, Map<String, String>> result = authService.login(request);
 
         if (result.isErr()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result.getError());
+            return ResponseEntity.status(result.getStatusCode()).body(result.getError());
         }
 
         Cookie refreshTokenCookie = new Cookie("refreshToken", result.getValue().get("refreshToken"));
@@ -55,6 +55,7 @@ public class AuthController {
         refreshTokenCookie.setPath("/");
         refreshTokenCookie.setMaxAge(7 * 24 * 60 * 60);
         response.addCookie(refreshTokenCookie);
+        System.err.println(result.getValue().get("accessToken"));
         return ResponseEntity.ok(new LoginResponse(result.getValue().get("accessToken")));
     }
 
@@ -62,9 +63,9 @@ public class AuthController {
     public ResponseEntity<?> refreshToken(@CookieValue(value = "refreshToken", required = false) String refreshToken, HttpServletResponse response) {
         Result<LoginResponse, Map<String, String>> result = authService.validateRefreshTokenAndGetNewAccessToken(refreshToken);
         if (result.isErr()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result.getError());
+            return ResponseEntity.status(result.getStatusCode()).body(result.getError());
         }
-        String accessToken = result.getValue().getToken();
+        String accessToken = result.getValue().getAccessToken();
         return ResponseEntity.ok(new LoginResponse(accessToken));
     }
 }

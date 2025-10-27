@@ -1,13 +1,16 @@
 package com.libre.user.service;
 
 
-
+import java.net.HttpURLConnection;
+import org.springframework.security.core.Authentication;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.libre.auth.dto.*;
+import com.libre.auth.security.LibreUserDetails;
 import com.libre.auth.service.JwtService;
+import com.libre.user.dto.UserDto;
 import com.libre.user.model.Role;
 import com.libre.user.model.User;
 import com.libre.user.repository.UserRepository;
@@ -34,7 +37,7 @@ public class UserService {
     public Result<LoginResponse, Map<String, String>> register(RegisterRequest request) {
         Result<Void, Map<String, String>> validateResult = validator.validateAllForRegister(request);
         if (validateResult.isErr()){
-            return Result.err(validateResult.getError());
+            return Result.err(validateResult.getError(), validateResult.getStatusCode());
         }  
 
         User user = new User();
@@ -53,11 +56,25 @@ public class UserService {
         } catch (DataIntegrityViolationException e) {
             return Result.err(Map.of(
                 "usernameOrEmail", "Username or email already exists"
-            ));
+            ), HttpURLConnection.HTTP_BAD_REQUEST);
         }
     }
 
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
+
+    public Optional<UserDto> getCurrentUser(Authentication authentication) {
+        LibreUserDetails userDetails = (LibreUserDetails) authentication.getPrincipal();
+    
+    return userRepository.findById(userDetails.getId())
+            .map(user -> new UserDto(
+                user.getUsername(),
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getAge(),
+                user.getRole().name()
+            ));
+}
 }

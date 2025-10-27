@@ -1,13 +1,13 @@
 package com.libre.auth.dto;
 
 public class LoginResponse {
-    private String token;
+    private String accessToken;
 
-    public LoginResponse(String token) {
-        this.token = token;
+    public LoginResponse(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
     }
 }

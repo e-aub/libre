@@ -27,8 +27,16 @@ export class AuthService {
     private accessToken = signal<string | null>(null);
 
     isLoggedIn = computed(()=> {
-        return !!this.accessToken;
+        return !!this.accessToken();
     });
+
+    getAccessToken() : string | null{
+        return this.accessToken();
+    }
+
+    setAccessToken(token : string | null) : void{
+        this.accessToken.set(token);
+    }
 
     constructor(private http: HttpClient){}
 
@@ -38,6 +46,7 @@ export class AuthService {
         }).pipe(
             tap(res => this.accessToken.set(res.accessToken)),
             tap(() => console.log('Login successful')),
+            tap((res) => console.log(res.accessToken)),
             map(()=> undefined),
         );
     }

@@ -1,14 +1,14 @@
 import { Component, inject, signal, Signal } from "@angular/core";
-import { UserService } from "../../user/user-service/user-service";
-import { UserDetails } from "../../user/user-service/user-service";
 import { JsonPipe } from '@angular/common';
 import { Header } from "../../header/header";
+import { UserDropdown } from "../../user/user-dropdown/user-dropdown";
+import { UserDetails, UserService } from "../../user/services/user-service/user-service";
 
 
 
 @Component({
     selector: 'app-home',
-    imports: [JsonPipe, Header],
+    imports: [JsonPipe, Header, UserDropdown],
     standalone: true,
     template: `
         <app-header></app-header>

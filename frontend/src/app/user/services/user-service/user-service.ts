@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, Signal } from '@angular/core';
-import { enviroment } from '../../../enviroment';
+import { enviroment } from '../../../../enviroment';
 
 export interface UserDetails {
   username: string;

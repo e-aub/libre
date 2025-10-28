@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { UserDropdown } from '../user/user-dropdown/user-dropdown';
 
 
 
@@ -7,6 +8,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-header',
   imports: [
     RouterModule,
+    UserDropdown
   ],
   templateUrl: './header.html',
   styleUrl: './header.css'

@@ -52,7 +52,9 @@ export class AuthService {
     }
 
     logout() : Observable<void>{
-        return this.http.post<void>(`${enviroment.apiUrl}/auth/logout`, {}).pipe(map(()=> {
+        return this.http.post<void>(`${enviroment.apiUrl}/auth/logout`, {}, {
+            withCredentials : true
+        }).pipe(map(()=> {
             this.accessToken.set(null);
         }))
     }

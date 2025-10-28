@@ -19,12 +19,14 @@ public class CorsConfig {
         // Request Forgery (CSRF) tokens
         corsConfiguration.setAllowCredentials(true);
 
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200/"));
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
 
-        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        // corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        corsConfiguration.setAllowedHeaders(List.of("*"));
+
 
         corsConfiguration.setAllowedMethods(
-                Arrays.asList("GET", "POST", "PUT", "DELETE"));
+                Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
         var urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);

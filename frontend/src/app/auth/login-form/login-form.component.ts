@@ -2,6 +2,7 @@ import { Component, inject, signal } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { ModalService } from "../../core/modal.service";
 import { AuthService } from "../auth-service/auth.service";
+import { Router } from "@angular/router";
 
 
 
@@ -52,6 +53,7 @@ export class LoginFormComponent{
     authService = inject(AuthService);
     loginError = signal<string | null>(null);
     passwordType = signal<'password' | 'text'>('password');
+    constructor(private router : Router) {}
 
 
     toggleShowPassword(){
@@ -78,7 +80,8 @@ export class LoginFormComponent{
             next : () => {
                 this.loginError.set(null);
                 this.authModalService.closeModal();
-                console.log(this.authService.isLoggedIn())
+                this.router.navigate(['']);
+                console.log(this.authService.isLoggedIn());
             },
             error : (err) => {
                 console.error('Login failed', err.error);

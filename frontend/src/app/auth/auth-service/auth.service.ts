@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpEvent } from "@angular/common/http";
 import { computed, Injectable, signal, Signal } from "@angular/core";
 import { map, Observable, tap } from "rxjs";
 import { enviroment } from "../../../enviroment";
@@ -22,12 +22,41 @@ interface LoginData{
     password : string,
 }
 
+// {sub: 'aelhadda', role: 'USER', iat: 1761784505, exp: 1761785405}
+interface Claims{
+    sub : string,
+    role : string,
+    iat : number,
+    exp : number,
+}
+
 @Injectable({providedIn : 'root'})
 export class AuthService {
     private accessToken = signal<string | null>(null);
 
     isLoggedIn = computed(()=> {
-        return !!this.accessToken();
+        if (this.accessToken()){
+            try{
+                console.log(this.accessToken());
+                const base64 = this.accessToken()!.split(".")[1].replace(/-/g, '+').replace(/_/g, '/');
+
+                const claims = JSON.parse(atob(base64));
+                console.log(claims.exp);
+            if (typeof claims?.exp !== 'number'){
+                throw false;
+            }
+                console.log("got here")
+          console.log(`angular date: ${new Date(Date.now()).toUTCString()}
+                    jwt date: ${new Date(claims.exp * 1000).toUTCString()}`);
+
+            return Date.now() < claims.exp * 1000;
+            }catch (e){
+                console.log(e);
+                return false;
+            }
+            
+        }
+        return false;
     });
 
     getAccessToken() : string | null{
@@ -48,6 +77,15 @@ export class AuthService {
             tap(() => console.log('Login successful')),
             tap((res) => console.log(res.accessToken)),
             map(()=> undefined),
+        );
+    }
+
+    refresh() : Observable<string>{
+        return this.http.post<AuthResponse>(`${enviroment}/auth/refresh`, {}, {
+            withCredentials : true
+        }).pipe(
+            tap(res => this.accessToken.set(res.accessToken)),
+            map(res => res.accessToken)
         );
     }
 

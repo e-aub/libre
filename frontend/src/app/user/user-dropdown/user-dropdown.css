@@ -123,6 +123,7 @@
 
 .dropdown-logout {
     padding: 8px 0;
+    cursor: pointer;
 }
 
 .logout-link {

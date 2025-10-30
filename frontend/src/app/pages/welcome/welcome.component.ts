@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthModalComponent } from '../../auth/auth-modal/auth-modal.component';
 import { ModalService } from '../../core/modal.service';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [AuthModalComponent],
@@ -36,13 +37,17 @@ import { ModalService } from '../../core/modal.service';
       </div>
       
     </section>
+    <button (click)="home()">Back to home</button>
+
     <app-auth-modal />
   `,
   styleUrl: './welcome.component.css',
 })
 export class WelcomeComponent {
     public authModalService = inject(ModalService);
-
+    router = inject(Router);
   
-    
+     home(){
+        this.router.navigateByUrl("/");
+    }
 }

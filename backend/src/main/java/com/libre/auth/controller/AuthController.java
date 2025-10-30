@@ -31,6 +31,7 @@ public class AuthController {
     private final UserService userService;
     private final AuthService authService;
     private final RedisService redisService;
+    
 
     public AuthController(UserService userService, AuthService authService, RedisService redisService, JwtService jwtService) {
         this.userService = userService;

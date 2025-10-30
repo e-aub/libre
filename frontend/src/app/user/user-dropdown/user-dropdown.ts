@@ -2,10 +2,12 @@ import { Component, HostListener, inject, signal } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { AuthService } from '../../auth/auth-service/auth.service';
 import { UserService } from '../services/user-service/user-service';
+import { IconsService } from '../../icons/icons-service/icons-service';
+import { IconComponent } from "../../icons/icon-component/icon-component";
 
 @Component({
   selector: 'app-user-dropdown',
-  imports: [RouterLink],
+  imports: [RouterLink, IconComponent, IconComponent],
   templateUrl: './user-dropdown.html',
   styleUrl: './user-dropdown.css'
 })
@@ -16,11 +18,11 @@ export class UserDropdown {
     authService = inject(AuthService);
     userDetailes = inject(UserService).getUserDetails();
     router = inject(Router);
+    iconsService = inject(IconsService);
 
     logout(){
       this.authService.logout().subscribe(
         {
-          next : () => this.router.navigateByUrl('/welcome'),
           error : (err) => console.log(err)
         }
       )

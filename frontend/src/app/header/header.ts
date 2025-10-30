@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UserDropdown } from '../user/user-dropdown/user-dropdown';
+import { SidebarService } from '../sidebar/sidebar-service/sidebar-service';
 
 
 
@@ -14,5 +15,5 @@ import { UserDropdown } from '../user/user-dropdown/user-dropdown';
   styleUrl: './header.css'
 })
 export class Header {
-
+  sidebarService = inject(SidebarService);
 }

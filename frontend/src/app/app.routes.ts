@@ -5,12 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
     {
-        path: 'welcome',
-        component: WelcomeComponent,
-    },
-    {
         path: '',
         component: HomeComponent,
-        canActivate: [authGuard],
     },
 ];

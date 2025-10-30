@@ -73,9 +73,7 @@ export class AuthService {
         return this.http.post<AuthResponse>(`${enviroment.apiUrl}/auth/login`, loginData,{
             withCredentials: true,
         }).pipe(
-            tap(res => this.accessToken.set(res.accessToken)),
-            tap(() => console.log('Login successful')),
-            tap((res) => console.log(res.accessToken)),
+            tap({next : res => this.accessToken.set(res.accessToken)}),
             map(()=> undefined),
         );
     }

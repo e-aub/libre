@@ -1,14 +1,19 @@
 import { HttpInterceptorFn, HttpErrorResponse, HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpStatusCode, HttpHandlerFn } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { inject, Injectable, signal } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../auth/auth-service/auth.service';
+import { enviroment } from '../../enviroment';
 
-let isRefreshing = false;
+let isRefreshing = signal<boolean>(false);
 const refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-    const authService = inject(AuthService);
+  if (req.url.includes(`${enviroment.apiUrl}/auth/login`) || req.url.includes(`${enviroment.apiUrl}/auth/register`)){
+    console.warn("Auth interceptor bypassed");
+    return next(req)
+  }
+  console.log("Auth Interceptor triggered");
+  const authService = inject(AuthService);
 
     const token = authService.getAccessToken();
     let clonedRequest = req;
@@ -28,21 +33,21 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 };
 
 const handleUnauthorized = (req: HttpRequest<any>, next: HttpHandlerFn, authService : AuthService): Observable<HttpEvent<any>> =>{
-    if (!isRefreshing) {
-      isRefreshing = true;
+    if (!isRefreshing()) {
+      isRefreshing.set(true);
       refreshTokenSubject.next(null);
 
       return authService.refresh()
         .pipe(
           switchMap((token) => {
-            isRefreshing = false;
+            isRefreshing.set(false);
             refreshTokenSubject.next(token);
             return next(addTokenToReq(req, token));
           }
 
           ),
           catchError(err => {
-            isRefreshing = false;
+            isRefreshing.set(false);
             authService.logout();
             return throwError(() => err);
           })

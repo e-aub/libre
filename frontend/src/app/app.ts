@@ -6,13 +6,9 @@ import { Layout } from "./pages/layout/layout";
 
 @Component({
   selector: 'app-root',
-  imports: [WelcomeComponent, Layout],
+  imports: [RouterOutlet],
   template: `
-        @if(authService.isLoggedIn()){
-            <app-layout></app-layout>
-        }@else{
-            <app-welcome></app-welcome>
-        }
+      <router-outlet></router-outlet>
     `,
 })
 export class App {

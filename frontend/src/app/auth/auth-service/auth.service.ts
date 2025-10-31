@@ -51,7 +51,6 @@ export class AuthService {
 
             return Date.now() < claims.exp * 1000;
             }catch (e){
-                console.log(e);
                 return false;
             }
             
@@ -79,7 +78,7 @@ export class AuthService {
     }
 
     refresh() : Observable<string>{
-        return this.http.post<AuthResponse>(`${enviroment}/auth/refresh`, {}, {
+        return this.http.post<AuthResponse>(`${enviroment.apiUrl}/auth/refresh`, {}, {
             withCredentials : true
         }).pipe(
             tap(res => this.accessToken.set(res.accessToken)),

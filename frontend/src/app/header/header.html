@@ -1,9 +1,7 @@
 <header class="header">
     <!-- Left Section -->
     <div class="header-left">
-        <svg (click)="sidebarService.toggleSidebar()" class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-        </svg>
+        <mat-icon (click)="sidebarService.toggleSidebar()" class="menu-icon">menu</mat-icon>
         <a [routerLink]="['/']" class="logo">
             <img class="logo-img" src="logo.png" alt="Libre logo">
         </a>
@@ -12,9 +10,7 @@
     <!-- Center Section (Search) -->
     <div class="header-center">
         <div class="search-container">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-            </svg>
+            <mat-icon class="search-icon">search</mat-icon>
             <input type="text" class="search-input" placeholder="Search">
         </div>
     </div>
@@ -22,17 +18,12 @@
     <!-- Right Section -->
     <div class="header-right">
         <a [routerLink]="['/write']" class="write-link">
-            <svg class="write-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20">
-                <path d="m416 42.67h-320c-52.91 0-96 43.09-96 96v234.66c0 52.91 43.09 96 96 96h320c52.91 0 96-43.09 96-96v-234.66c0-52.91-43.09-96-96-96zm-320 21.33h320c41.17 0 74.67 33.49 74.67 74.67v10.66h-469.34v-10.66c0-41.18 33.5-74.67 74.67-74.67zm320 384h-320c-41.17 0-74.67-33.49-74.67-74.67v-202.66h469.34v202.66c0 41.18-33.5 74.67-74.67 74.67zm-181.33-202.67c0 5.98-4.7 10.67-10.67 10.67h-53.33v117.33c0 5.98-4.7 10.67-10.67 10.67-5.97 0-10.67-4.69-10.67-10.67v-117.33h-53.33c-5.97 0-10.67-4.69-10.67-10.67 0-5.97 4.7-10.66 10.67-10.66h128c5.97 0 10.67 4.69 10.67 10.66zm192 0c0 5.98-4.7 10.67-10.67 10.67h-128c-5.97 0-10.67-4.69-10.67-10.67 0-5.97 4.7-10.66 10.67-10.66h128c5.97 0 10.67 4.69 10.67 10.66zm0 85.34c0 5.97-4.7 10.66-10.67 10.66h-128c-5.97 0-10.67-4.69-10.67-10.66 0-5.98 4.7-10.67 10.67-10.67h128c5.97 0 10.67 4.69 10.67 10.67z"/>
-            </svg>
+            <mat-icon class="write-icon">edit_note</mat-icon>
             <span>Write</span>
         </a>
 
-        <svg [routerLink]="['/notifications']" class="bell-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path d="m23.39 16.21l-2.41-9.39c-1.12-4.02-4.81-6.82-8.98-6.82-4.4 0-8.14 3-9.1 7.29l-2.21 9.07c-0.2 0.89 0.02 1.8 0.59 2.52 0.57 0.71 1.43 1.12 2.34 1.12h3.48c0.47 2.28 2.49 4 4.9 4 2.41 0 4.43-1.72 4.9-4h3.6c0.94 0 1.82-0.43 2.39-1.18 0.57-0.76 0.75-1.71 0.5-2.61zm-11.39 6.79c-1.86 0-3.41-1.28-3.86-3h7.72c-0.45 1.72-2 3-3.86 3zm10.09-4.79c-0.38 0.5-0.96 0.79-1.59 0.79h-16.88c-0.61 0-1.18-0.27-1.56-0.75-0.38-0.47-0.52-1.09-0.39-1.66l2.21-9.07c0.85-3.84 4.19-6.52 8.12-6.52 3.72 0 7.02 2.5 8.01 6.07l2.42 9.39c0.16 0.61 0.04 1.25-0.34 1.75z"/>
-        </svg>
+        <mat-icon [routerLink]="['/notifications']" class="bell-icon">notifications</mat-icon>
 
         <app-user-dropdown></app-user-dropdown>
-
     </div>
 </header>

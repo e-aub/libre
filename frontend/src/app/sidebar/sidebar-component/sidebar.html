@@ -1,5 +1,33 @@
 <mat-sidenav-container class="example-container">
-    <mat-sidenav mode="side" [opened]="sidebarService.opened()">Sidenav content</mat-sidenav>
+    <mat-sidenav mode="side" [opened]="sidebarService.opened()">
+           <ul class="sidebar-menu">
+            @for (item of sidebarService.getSidebarItems()['important']; track item.path) {
+                <li class="sidebar-item">
+                    <a [routerLink]="item.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-link">
+                        <mat-icon class="sidebar-icon">{{ item.icon }}</mat-icon>
+                        <span class="sidebar-text">{{ item.name }}</span>
+                    </a>
+                </li>
+            }
+        </ul>
+
+        @if (sidebarService.getSidebarItems()['lessImportant']!.length > 0) {
+            <div class="sidebar-divider"></div>
+        }
+
+        @if (sidebarService.getSidebarItems()['lessImportant']!.length > 0) {
+            <ul class="sidebar-menu sidebar-menu-bottom">
+                @for (item of sidebarService.getSidebarItems()['lessImportant']; track item.path) {
+                    <li class="sidebar-item">
+                        <a [routerLink]="item.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-link">
+                            <mat-icon class="sidebar-icon">{{ item.icon }}</mat-icon>
+                            <span class="sidebar-text">{{ item.name }}</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </mat-sidenav>
     <mat-sidenav-content>
       <router-outlet></router-outlet>
     </mat-sidenav-content>

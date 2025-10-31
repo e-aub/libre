@@ -1,170 +1,183 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: var(--font-ui);
-    background-color: var(--color-white);
-}
-
+/* Header Styles with Material Icons */
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background-color: var(--color-white);
+    border-bottom: 1px solid #f0f0f0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 24px;
-    border-bottom: 1px solid #f2f2f2;
-    background-color: var(--color-white);
-    position: sticky;
-    top: 0;
+    padding: 0 24px;
     z-index: 1000;
 }
 
+/* Header Sections */
 .header-left {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
+.header-center {
+    flex: 1;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Menu Icon */
 .menu-icon {
     width: 24px;
     height: 24px;
+    font-size: 24px;
     cursor: pointer;
-    fill: var(--color-black);
-    transition: fill 0.3s ease;
+    color: var(--color-black);
+    transition: color 0.2s ease;
+    user-select: none;
 }
 
 .menu-icon:hover {
-    fill: var(--color-gray);
+    color: var(--color-gray);
 }
 
+/* Logo */
 .logo {
-    font-family: var(--font-display);
-    font-size: 28px;
-    font-weight: 400;
-    color: var(--color-black);
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    letter-spacing: -0.5px;
 }
 
 .logo-img {
     height: 32px;
     width: auto;
-    max-width: 100%;
 }
 
-.header-center {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    max-width: 600px;
-    margin: 0 40px;
-}
-
+/* Search Container */
 .search-container {
     display: flex;
     align-items: center;
     background-color: #f9f9f9;
     border-radius: 24px;
     padding: 8px 16px;
-    width: 100%;
     gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.search-container:focus-within {
+    background-color: #f0f0f0;
 }
 
 .search-icon {
     width: 20px;
     height: 20px;
-    fill: var(--color-gray);
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
+    font-size: 20px;
+    color: var(--color-gray);
+    flex-shrink: 0;
 }
 
 .search-input {
+    flex: 1;
     border: none;
     background: transparent;
     outline: none;
-    font-size: 14px;
     font-family: var(--font-ui);
-    color: var(--color-black);
-    width: 100%;
+    font-size: 14px;
+    color: var(--color-text-dark);
 }
 
 .search-input::placeholder {
     color: var(--color-gray);
 }
 
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-}
-
+/* Write Link */
 .write-link {
     display: flex;
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    color: var(--color-text-light);
-    font-size: 14px;
+    color: var(--color-text-dark);
     font-family: var(--font-ui);
-    transition: color 0.2s ease;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
 }
 
 .write-link:hover {
-    color: var(--color-black);
+    background-color: #f9f9f9;
 }
 
 .write-icon {
     width: 20px;
     height: 20px;
-    fill: var(--color-text-light);
-    transition: fill 0.2s ease;
+    font-size: 20px;
+    color: var(--color-gray);
 }
 
-.write-link:hover .write-icon {
-    fill: var(--color-black);
-}
-
+/* Bell Icon */
 .bell-icon {
     width: 24px;
     height: 24px;
+    font-size: 24px;
+    color: var(--color-gray);
     cursor: pointer;
-    fill: var(--color-gray);
-    opacity: 0.6;
-    transition: opacity 0.2s ease, fill 0.2s ease;
+    transition: color 0.2s ease;
+    user-select: none;
 }
 
 .bell-icon:hover {
-    opacity: 1;
-    fill: var(--color-black);
-}
-
-.user-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: #e0e0e0;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-    /* Add user profile image as background-image */
-}
-
-.user-avatar:hover {
-    opacity: 0.8;
+    color: var(--color-black);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+    .header {
+        padding: 0 16px;
+    }
+
     .header-center {
         display: none;
     }
 
     .header-right {
-        gap: 16px;
+        gap: 12px;
     }
 
     .write-link span {
         display: none;
+    }
+
+    .write-link {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-left {
+        gap: 12px;
+    }
+
+    .logo-img {
+        height: 28px;
+    }
+
+    .header-right {
+        gap: 8px;
+    }
+
+    .menu-icon,
+    .bell-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 22px;
     }
 }

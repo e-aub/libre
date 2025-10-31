@@ -31,7 +31,6 @@ public class AuthController {
     private final UserService userService;
     private final AuthService authService;
     private final RedisService redisService;
-    
 
     public AuthController(UserService userService, AuthService authService, RedisService redisService, JwtService jwtService) {
         this.userService = userService;
@@ -93,18 +92,23 @@ public class AuthController {
         response.addCookie(cookie);
     }
 
-    @GetMapping("/refresh")
+    @PostMapping("/refresh")
     public ResponseEntity<?> refreshToken(@CookieValue(value = "refreshToken", required = false) String refreshToken, HttpServletResponse response) {
         if (refreshToken == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "invalid refresh token"));
         }
-        Result<LoginResponse, Map<String, String>> result = authService.validateRefreshTokenAndGetNewAccessToken(refreshToken);
-        if (result.isErr()) {
-            return ResponseEntity.status(result.getStatusCode()).body(result.getError());
+        try {
+            Result<LoginResponse, Map<String, String>> result = authService.validateRefreshTokenAndGetNewAccessToken(refreshToken);
+            if (result.isErr()) {
+                return ResponseEntity.status(result.getStatusCode()).body(result.getError());
+            }
+            String accessToken = result.getValue().getAccessToken();
+            return ResponseEntity.ok(new LoginResponse(accessToken));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "internal server error"));
+
         }
-        String accessToken = result.getValue().getAccessToken();
-        return ResponseEntity.ok(new LoginResponse(accessToken));
+
     }
 
-  
 }

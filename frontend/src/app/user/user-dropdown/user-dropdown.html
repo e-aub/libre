@@ -2,7 +2,7 @@
     <div (click)="toggleDropdown($event)" class="user-avatar"></div>
 
     @if(visible()){
-    <div class="user-dropdown">
+    <div class="user-dropdown" (click)="$event.stopPropagation()">
         <!-- User Profile Section -->
         <div class="user-profile-section">
             <div class="user-avatar"></div>
@@ -19,20 +19,14 @@
         <ul class="dropdown-menu-list">
             <li class="dropdown-menu-item">
                 <a [routerLink]="['/settings']" class="dropdown-link">
-                    <app-icon name="settings"></app-icon>
+                    <mat-icon class="dropdown-icon">settings</mat-icon>
                     <span>Settings</span>
                 </a>
             </li>
 
             <li class="dropdown-menu-item">
                 <a [routerLink]="['/help']" class="dropdown-link">
-                    <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20"
-                        height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                        <line x1="12" y1="17" x2="12.01" y2="17" />
-                    </svg>
+                    <mat-icon class="dropdown-icon">help_outline</mat-icon>
                     <span>Help</span>
                 </a>
             </li>
@@ -43,16 +37,10 @@
         <!-- Logout -->
         <div (click)="logout()" class="dropdown-logout">
             <a class="dropdown-link logout-link">
-                <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                    <polyline points="16 17 21 12 16 7" />
-                    <line x1="21" y1="12" x2="9" y2="12" />
-                </svg>
+                <mat-icon class="dropdown-icon">logout</mat-icon>
                 <span>Logout</span>
             </a>
         </div>
     </div>
     }
-
 </div>

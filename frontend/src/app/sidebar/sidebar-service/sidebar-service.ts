@@ -3,69 +3,79 @@ import { Router } from '@angular/router';
 
 interface sidebarItem {
   name: string,
-  // icon : string,
+  icon: string,
   path: string,
-}
-
-type groupType = "important" | "lessImportant";
-
-interface sidebarGroup {
-  type: groupType,
-  elements: sidebarItem[],
 }
 
 @Injectable({
   providedIn: 'root'
 })
 
-
 export class SidebarService {
   private router = inject(Router);
-  private globalItems: sidebarGroup[] = [
-    {
-      type: "important",
-      elements: [
-        {
-          name: "Home",
-          path: "/",
-        },
-        {
-          name: "Profile",
-          path: "/profile"
-        },
-        {
-          name: "Following",
-          path: "/following"
-        }
-      ]
-    },
-    {
-      type: "lessImportant",
-      elements: [
-        { name: "Dashboard", path: "/dashboard" },
-      ]
-    }
-  ]
+  
+  private globalItems: Record<string, sidebarItem[]> = {
+    important: [
+      {
+        name: "Home",
+        icon: "home",
+        path: "/",
+      },
+      {
+        name: "Profile",
+        icon: "person",
+        path: "/profile"
+      },
+      {
+        name: "Following",
+        icon: "people",
+        path: "/following"
+      }
+    ],
+    lessImportant: [
+      { 
+        name: "Dashboard", 
+        icon: "dashboard",
+        path: "/dashboard" 
+      },
+    ]
+  };
 
-  private dashBoardItems: sidebarGroup[] = [
-    {
-      type: "important",
-      elements: [
-        {
-          name: "Users",
-          path: "/users"
-        }
-      ]
-    }
-  ]
+  private dashBoardItems: Record<string, sidebarItem[]> = {
+    important: [
+      {
+        name: "Overview",
+        icon: "dashboard",
+        path: "/dashboard"
+      },
+      {
+        name: "Users",
+        icon: "group",
+        path: "/dashboard/users"
+      },
+      {
+        name: "Analytics",
+        icon: "analytics",
+        path: "/dashboard/analytics"
+      }
+    ],
+    lessImportant: [
+      {
+        name: "Settings",
+        icon: "settings",
+        path: "/dashboard/settings"
+      }
+    ]
+  };
+  
   opened = signal<boolean>(false);
 
   toggleSidebar() {
     this.opened.set(!this.opened());
   }
 
-  getSidebarItems(): sidebarGroup[] {
-    if (this.router.url == "/dashboard") {
+  getSidebarItems(): Record<string, sidebarItem[]> {
+    if (this.router.url.startsWith("/dashboard")) {
       return this.dashBoardItems;
     }
     return this.globalItems;

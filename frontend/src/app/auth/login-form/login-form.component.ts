@@ -80,7 +80,13 @@ export class LoginFormComponent{
             next : () => {
                 this.loginError.set(null);
                 this.authModalService.closeModal();
-                this.router.navigate(['']);
+                const urlTree = this.router.parseUrl(this.router.url);
+                const returnUrl = urlTree.queryParams['returnUrl'];
+                if (returnUrl){
+                    this.router.navigateByUrl(returnUrl);
+                }else{
+                    this.router.navigateByUrl("");
+                }
                 console.log(this.authService.isLoggedIn());
             },
             error : (err) => {

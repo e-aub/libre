@@ -1,20 +1,20 @@
 import { inject } from '@angular/core';
-import { Router, CanActivateFn } from '@angular/router';
+import { Router, CanActivateFn, UrlTree } from '@angular/router';
 import { AuthService } from '../auth/auth-service/auth.service';
+import { catchError, map, of } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
-
-  console.log('Auth Guard triggered!');
-
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isLoggedIn()) {
-      return true;
-  }
+  if (authService.isLoggedIn()) return true;
 
-  router.navigate(['/welcome'], { 
-    queryParams: { returnUrl: state.url } 
-  });
-  return false;
+  return authService.refresh().pipe(
+    map(() => true),
+    catchError(() => {
+      return of(router.createUrlTree(['/welcome'], {
+        queryParams: { returnUrl: state.url }
+      }));
+    })
+  );
 };

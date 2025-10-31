@@ -102,23 +102,29 @@
     font-family: var(--font-ui);
     font-size: 14px;
     transition: background-color 0.2s ease;
+    cursor: pointer;
 }
 
 .dropdown-link:hover {
     background-color: #f9f9f9;
 }
 
+/* Material Icons Support */
 .dropdown-icon {
     width: 20px;
     height: 20px;
-    stroke: var(--color-gray);
-    fill: none;
+    font-size: 20px;
+    color: var(--color-gray);
     flex-shrink: 0;
-    transition: stroke 0.2s ease;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
 }
 
 .dropdown-link:hover .dropdown-icon {
-    stroke: var(--color-black);
+    color: var(--color-black);
 }
 
 .dropdown-logout {
@@ -128,10 +134,11 @@
 
 .logout-link {
     color: var(--color-red);
+    cursor: pointer;
 }
 
 .logout-link .dropdown-icon {
-    stroke: var(--color-red);
+    color: var(--color-red);
 }
 
 .logout-link:hover {
@@ -139,7 +146,7 @@
 }
 
 .logout-link:hover .dropdown-icon {
-    stroke: var(--color-red);
+    color: var(--color-red);
 }
 
 @media (max-width: 768px) {
@@ -180,6 +187,7 @@
     .dropdown-icon {
         width: 18px;
         height: 18px;
+        font-size: 18px;
     }
 }
 
@@ -251,6 +259,7 @@
     .dropdown-icon {
         width: 22px;
         height: 22px;
+        font-size: 22px;
     }
 }
 
@@ -271,6 +280,7 @@
 @media (hover: none) and (pointer: coarse) {
     .dropdown-link {
         padding: 14px 20px;
+        min-height: 48px;
     }
 
     .user-avatar {
@@ -280,5 +290,12 @@
 
     .logout-link {
         padding: 14px 20px;
+        min-height: 48px;
+    }
+
+    .dropdown-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 24px;
     }
 }

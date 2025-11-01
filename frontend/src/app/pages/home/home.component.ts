@@ -2,6 +2,7 @@ import { Component, inject, signal, Signal } from "@angular/core";
 import { UserDetails, UserService } from "../../user/services/user-service/user-service";
 import { Router } from "@angular/router";
 import { AuthService } from "../../auth/auth-service/auth.service";
+import { MarkdownEditor } from "../markdown-editor/markdown-editor";
 
 
 
@@ -9,8 +10,9 @@ import { AuthService } from "../../auth/auth-service/auth.service";
     selector: 'app-home',
     standalone: true,
     template: `
-        <p>this is homedddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+        <app-markdown-editor></app-markdown-editor>
     `,
+    imports: [MarkdownEditor],
 })
 export class HomeComponent {
     private userService : UserService = inject(UserService);

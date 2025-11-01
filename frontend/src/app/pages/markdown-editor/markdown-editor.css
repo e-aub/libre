@@ -1,0 +1,409 @@
+app-markdown-editor {
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
+    min-height: 100vh;
+}
+
+.editor-container-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+    box-shadow: none;
+}
+
+.article-title-input {
+    width: 90%;
+    margin-left: 3rem;
+    box-sizing: border-box;
+    padding: 1rem 0;
+    font-family: var(--font-display) !important;
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.022em;
+    color: var(--color-dark-gray);
+    border: none;
+    outline: none;
+    background: transparent;
+    resize: none;
+    white-space: pre-wrap; 
+    overflow-wrap: break-word;
+    height: 100px;
+}
+
+.error-message {
+    color: var(--color-red);
+    font-size: 1rem;
+    margin-left: 3rem;
+}
+.article-title-input::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+    font-weight: 400;
+}
+
+.article-title-input:focus {
+    outline: none;
+}
+
+.editor-main-area {
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.toastui-editor-defaultUI {
+    border: none !important;
+    box-shadow: none !important;
+    height: auto !important;
+}
+
+.toastui-editor-defaultUI-toolbar {
+    background-color: white;
+    justify-content: center;
+}
+
+.toastui-editor-dropdown-toolbar {
+    background-color: white;
+}
+
+
+
+.toastui-editor-defaultUI .toastui-editor-toolbar {
+    background-color: #0000 !important;
+    transition: box-shadow 0.2s ease !important;
+}
+
+.toastui-editor-toolbar {
+    position: sticky !important;
+    top: 0px !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 99999 !important;
+    margin: 0 auto;
+}
+
+
+.toastui-editor-defaultUI .toastui-editor-toolbar.toolbar-fixed {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9999 !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* view stylrs */
+.toastui-editor-defaultUI .toastui-editor-contents,
+.toastui-editor-defaultUI .ProseMirror {
+    font-family: var(--font-body) !important;
+    font-size: 1.3rem !important;
+    line-height: 1.5 !important;
+    color: var(--color-dark-gray) !important;
+    padding: 3rem !important;
+    min-height: 600px;
+    height: auto !important;
+}
+
+.toastui-editor-defaultUI .toastui-editor-contents h1,
+.toastui-editor-defaultUI .toastui-editor-contents h2,
+.toastui-editor-defaultUI .toastui-editor-contents h3,
+.toastui-editor-defaultUI .ProseMirror h1,
+.toastui-editor-defaultUI .ProseMirror h2,
+.toastui-editor-defaultUI .ProseMirror h3 {
+    font-family: var(--font-display) !important;
+    margin-top: 1.5em !important;
+    margin-bottom: 0.5em !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    color: var(--color-dark-gray) !important;
+}
+
+.toastui-editor-defaultUI .toastui-editor-contents h1,
+.toastui-editor-defaultUI .ProseMirror h1 {
+    font-size: 2.5rem !important;
+    margin-top: 0 !important;
+}
+
+.toastui-editor-defaultUI .toastui-editor-contents h2,
+.toastui-editor-defaultUI .ProseMirror h2 {
+    font-size: 2rem !important;
+}
+
+.toastui-editor-defaultUI .toastui-editor-contents h3,
+.toastui-editor-defaultUI .ProseMirror h3 {
+    font-size: 1.6rem !important;
+}
+
+.toastui-editor-contents p,
+.ProseMirror p {
+    margin-bottom: 1.5em !important;
+    margin-top: 0.5em !important;
+}
+
+.toastui-editor-contents blockquote,
+.ProseMirror blockquote {
+    border-left: 3px solid var(--color-gray) !important;
+    padding-left: 1.5rem !important;
+    margin: 2rem 0 !important;
+    font-style: italic !important;
+    color: var(--color-gray) !important;
+}
+
+
+.toastui-editor-md-preview .toastui-editor-contents h1 {
+    font-family: var(--font-display) !important;
+    font-size: 2.75rem !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+    color: var(--color-dark-gray) !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.3em !important;
+    letter-spacing: -0.022em !important;
+    padding-bottom: 0.2em !important;
+}
+
+/* H2 - Section Headers */
+.toastui-editor-md-preview .toastui-editor-contents h2 {
+    font-family: var(--font-display) !important;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    color: var(--color-dark-gray) !important;
+    margin-top: 1.95em !important;
+    margin-bottom: 0.3em !important;
+    letter-spacing: -0.018em !important;
+}
+
+/* H3 - Subsection Headers */
+.toastui-editor-md-preview .toastui-editor-contents h3 {
+    font-family: var(--font-display) !important;
+    font-size: 1.625rem !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    color: var(--color-dark-gray) !important;
+    margin-top: 1.7em !important;
+    margin-bottom: 0.3em !important;
+    letter-spacing: -0.014em !important;
+}
+
+/* H4, H5, H6 */
+.toastui-editor-md-preview .toastui-editor-contents h4 {
+    font-family: var(--font-body) !important;
+    font-size: 1.375rem !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    color: var(--color-dark-gray) !important;
+    margin-top: 1.5em !important;
+    margin-bottom: 0.3em !important;
+}
+
+.toastui-editor-md-preview .toastui-editor-contents h5,
+.toastui-editor-md-preview .toastui-editor-contents h6 {
+    font-family: var(--font-body) !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    color: var(--color-dark-gray) !important;
+    margin-top: 1.3em !important;
+    margin-bottom: 0.3em !important;
+}
+
+/* Paragraphs */
+.toastui-editor-md-preview .toastui-editor-contents p {
+    font-family: var(--font-body) !important;
+    font-size: 1.25rem !important;
+    line-height: 1.58 !important;
+    color: var(--color-dark-gray) !important;
+    margin-bottom: 2em !important;
+    margin-top: 0 !important;
+    word-wrap: break-word !important;
+    letter-spacing: -0.003em !important;
+}
+
+/* Strong (Bold) */
+.toastui-editor-md-preview .toastui-editor-contents strong,
+.toastui-editor-md-preview .toastui-editor-contents b {
+    font-weight: 700 !important;
+    color: var(--color-dark-gray) !important;
+}
+
+/* Emphasis (Italic) */
+.toastui-editor-md-preview .toastui-editor-contents em,
+.toastui-editor-md-preview .toastui-editor-contents i {
+    font-style: italic !important;
+    color: var(--color-dark-gray) !important;
+}
+
+/* Links */
+.toastui-editor-md-preview .toastui-editor-contents a {
+    color: inherit !important;
+    text-decoration: underline !important;
+    text-decoration-color: rgba(0, 0, 0, 0.68) !important;
+    cursor: pointer !important;
+    transition: all 0.1s ease-in !important;
+}
+
+.toastui-editor-md-preview .toastui-editor-contents a:hover {
+    text-decoration-color: var(--color-dark-gray) !important;
+}
+
+/* Blockquotes */
+.toastui-editor-md-preview .toastui-editor-contents blockquote {
+    border-left: 3px solid rgba(0, 0, 0, 0.84) !important;
+    padding-left: 1.4em !important;
+    padding-right: 0 !important;
+    margin-left: -1.58em !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    font-style: italic !important;
+    color: var(--color-dark-gray) !important;
+    font-size: 1.25rem !important;
+    line-height: 1.58 !important;
+}
+
+.toastui-editor-md-preview .toastui-editor-contents blockquote p {
+    color: var(--color-dark-gray) !important;
+    font-style: italic !important;
+    margin-bottom: 1.58em !important;
+}
+
+/* Code Inline */
+.toastui-editor-md-preview .toastui-editor-contents code {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    padding: 3px 4px !important;
+    margin: 0 2px !important;
+    border-radius: 3px !important;
+    font-family: Menlo, Monaco, 'Courier New', Courier, monospace !important;
+    font-size: 0.875rem !important;
+    color: var(--color-dark-gray) !important;
+    font-weight: 400 !important;
+}
+
+/* Code Blocks */
+.toastui-editor-md-preview .toastui-editor-contents pre {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    padding: 20px !important;
+    border-radius: 4px !important;
+    /* overflow-x: auto !important; */
+    margin: 2em 0 !important;
+    font-family: Menlo, Monaco, 'Courier New', Courier, monospace !important;
+}
+
+.toastui-editor-md-preview .toastui-editor-contents pre code {
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 0.9375rem !important;
+    line-height: 1.5 !important;
+    color: rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Unordered Lists */
+.toastui-editor-md-preview .toastui-editor-contents ul {
+    margin: 1.4em 0 !important;
+    padding-left: 2.2em !important;
+    list-style-type: disc !important;
+}
+
+.toastui-editor-md-preview .toastui-editor-contents ul li {
+    font-family: var(--font-body) !important;
+    font-size: 1.25rem !important;
+    line-height: 1.58 !important;
+    color: var(--color-dark-gray) !important;
+    margin-bottom: 0.5em !important;
+    padding-left: 0.3em !important;
+}
+
+.toastui-editor-md-preview .toastui-editor-contents ul li p {
+    margin-bottom: 0.5em !important;
+}
+
+/* Ordered Lists */
+.toastui-editor-md-preview .toastui-editor-contents ol {
+    margin: 1.4em 0 !important;
+    padding-left: 2.2em !important;
+    list-style-type: decimal !important;
+}
+
+.toastui-editor-md-preview .toastui-editor-contents ol li {
+    font-family: var(--font-body) !important;
+    font-size: 1.25rem !important;
+    line-height: 1.58 !important;
+    color: var(--color-dark-gray) !important;
+    margin-bottom: 0.5em !important;
+    padding-left: 0.3em !important;
+}
+
+.toastui-editor-md-preview .toastui-editor-contents ol li p {
+    margin-bottom: 0.5em !important;
+}
+
+/* Nested Lists */
+.toastui-editor-md-preview .toastui-editor-contents li>ul,
+.toastui-editor-md-preview .toastui-editor-contents li>ol {
+    margin: 0.5em 0 !important;
+}
+
+/* Horizontal Rule */
+.toastui-editor-md-preview .toastui-editor-contents hr {
+    border: none !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.15) !important;
+    margin: 2.5em 0 !important;
+}
+
+/* Images */
+.toastui-editor-md-preview .toastui-editor-contents img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 2.5em auto !important;
+}
+
+/* Tables */
+.toastui-editor-md-preview .toastui-editor-contents table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    margin: 2em 0 !important;
+    font-family: var(--font-body) !important;
+    font-size: 1.05rem !important;
+}
+
+.toastui-editor-md-preview .toastui-editor-contents th,
+.toastui-editor-md-preview .toastui-editor-contents td {
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    padding: 12px 16px !important;
+    text-align: left !important;
+}
+
+.toastui-editor-md-preview .toastui-editor-contents th {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+    font-weight: 600 !important;
+    color: var(--color-dark-gray) !important;
+}
+
+.toastui-editor-md-preview .toastui-editor-contents input[type="checkbox"] {
+    margin-right: 0.5em !important;
+}
+
+/* Button styling */
+.action-button {
+    display: block;
+    margin-top: 1.5rem;
+    width: 90%;
+    margin: 20px auto;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-primary-green);
+    color: var(--color-white);
+    font-weight: 600;
+    border-radius: 50px;
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: var(--font-body);
+}
+
+

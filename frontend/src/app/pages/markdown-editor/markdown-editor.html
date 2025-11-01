@@ -1,0 +1,16 @@
+<div class="editor-container-wrapper">
+  <textarea
+    class="article-title-input"
+    placeholder="Article Title"
+    [(ngModel)]="articleTitle"
+    (input)="onTitleChange($event)" 
+    maxlength="60"
+    rows="1"
+  ></textarea>
+  @if(titleError()){
+      <p class="error-message">{{ titleError() }}</p>
+  }
+
+  <div #editorContainer class="editor-main-area"></div>
+  <button (click)="submitForm()" class="action-button">Post</button>
+</div>

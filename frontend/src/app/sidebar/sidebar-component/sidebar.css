@@ -11,7 +11,7 @@ mat-sidenav {
     width: 240px;
     background-color: var(--color-white);
     border-right: 1px solid #f2f2f2;
-    padding: 80px 8px 32px 8px;
+    padding: 10px 8px 0px 8px;
     display: flex;
     flex-direction: column;
 }
@@ -167,7 +167,7 @@ mat-sidenav-content {
     }
 
     mat-sidenav {
-        padding: 80px 6px 32px 6px;
+        padding: 10px 6px 32px 6px;
     }
 }
 
@@ -175,7 +175,7 @@ mat-sidenav-content {
 @media (max-width: 767px) {
     mat-sidenav {
         width: 72px;
-        padding: 70px 4px 32px 4px;
+        padding: 10px 4px 32px 4px;
     }
 
     .sidebar-link {

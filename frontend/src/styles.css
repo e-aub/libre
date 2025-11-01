@@ -1,3 +1,7 @@
+/* @import '../node_modules/@toast-ui/editor/dist/toastui-editor-viewer.css'; */
+/* @import '../node_modules/@toast-ui/editor/dist/toastui-editor-only.css'; */
+@import '../node_modules/@toast-ui/editor/dist/toastui-editor.css';
+
 :root {
     --color-black: #000000;
     --color-dark-gray: #242424;
@@ -6,7 +10,7 @@
 
 
     --color-white: #ffffff;
-    --color-primary-green: #79FF4D;
+    --color-primary-green: #157313;
     --color-text-dark: #333333;
     --color-text-light: #6c757d;
 
@@ -58,6 +62,6 @@ body {
     border: 1px solid var(--color-black);
 }
 
-.main-content {
+/* .main-content {
     padding-top: 64px;
-}
+} */
